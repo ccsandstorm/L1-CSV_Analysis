@@ -11,7 +11,7 @@ public class WeatherAnalyzer {
         String[][] data = readCSV("weather_data.csv");
 
         //need to ask what data we want extracted!!!
-        double[] extractedData = extractNumericColumn(data, colIndex);
+        double[] extractedData = extractNumericColumn(data, 1);
 
     }
 
@@ -43,15 +43,26 @@ public class WeatherAnalyzer {
     public static double[] extractNumericColumn(String[][] data, int columnIndex) {
         // Extract and validate numeric data from specified column
 
-        //look at the specified column using int columnIndex
-        //go through every row
-        //get the value from that column
-        //convert from String -> double
-        //validate data
-        //put valid numbers into a double[]
-        //return double[] values
+        ArrayList<Double> validValues = new ArrayList<>(); //ArrayList to hold specified data
+        for(int i = 1; i < data.length; i++) { //loop skipping header row
+            try {
+                if(columnIndex < data[i].length) { //validating arguments
+                    String value = data[i][columnIndex]; //converting column to string
+                    double numericValue = Double.parseDouble(value); //converting column string to double
+                    validValues.add(numericValue); //adding double to arraylist
+                }
+            }
+            catch (NumberFormatException e) { //error handling for invalid data entries
+                //do I need to put something here or can I just skip?
+            }
+        }
 
-        return null;
+        double[] result = new double[validValues.size()];
+        for(int i = 0; i < validValues.size(); i++) {
+            result[i] = validValues.get(i); //placing validated data into double array
+        }
+
+        return result;
     }
 
     public static void displayStatistics(double[] values, String columnName) {
