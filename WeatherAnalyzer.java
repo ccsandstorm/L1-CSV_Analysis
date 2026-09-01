@@ -1,32 +1,41 @@
 import java.util.Scanner;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class WeatherAnalyzer {
 
     public static void main(String[] args) throws IOException {
         // Main program logic
-        readCSV("weather_data.csv");
+        String[][] data = readCSV("weather_data.csv");
 
     }
 
-    public static String [][] readCSV(String filename) throws IOException {
+    public static String[][] readCSV(String filename) throws IOException {
         // Read and parse CSV file
 
         FileInputStream fileByteStream = new FileInputStream(filename); //open file
         Scanner inFS = new Scanner(fileByteStream); 
 
-        while(inFS.hasNextLine()) { //while there are elements within the scanner...
-            //read each line of the CSV
-            System.out.println(inFS.nextLine());
-        }
-        //split line into columns
-        //store the rows (String [])
-        //store the rows (ArrayList<String[]>)
-        //convert ArrayList -> String[][] data
+        ArrayList<String[]> contents = new ArrayList<>();
 
-        inFS.close();
-        return null;
+        while(inFS.hasNextLine()) { //while there are elements within the scanner...
+            // System.out.println(inFS.nextLine()); //test - print each line of the CSV
+            String line = inFS.nextLine();
+            String[] lineData = line.split(","); //split line into columns and save
+            contents.add(lineData); //add CSV line to ArrayList
+
+        }
+
+        inFS.close(); //close file
+
+        String[][] contentsData = new String[contents.size()][]; //2d array creation
+
+        for(int i = 0; i < contents.size(); i++) { //convert ArrayList to 2d array
+            contentsData[i] = contents.get(i);
+        }
+
+        return contentsData;
     }
 
     public static double[] extractNumericColumn(String[][] data, int columnIndex) {
