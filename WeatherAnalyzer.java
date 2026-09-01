@@ -7,7 +7,11 @@ public class WeatherAnalyzer {
 
     public static void main(String[] args) throws IOException {
         // Main program logic
+
         String[][] data = readCSV("weather_data.csv");
+
+        //need to ask what data we want extracted!!!
+        double[] extractedData = extractNumericColumn(data, colIndex);
 
     }
 
@@ -20,11 +24,9 @@ public class WeatherAnalyzer {
         ArrayList<String[]> contents = new ArrayList<>();
 
         while(inFS.hasNextLine()) { //while there are elements within the scanner...
-            // System.out.println(inFS.nextLine()); //test - print each line of the CSV
             String line = inFS.nextLine();
             String[] lineData = line.split(","); //split line into columns and save
             contents.add(lineData); //add CSV line to ArrayList
-
         }
 
         inFS.close(); //close file
@@ -43,7 +45,7 @@ public class WeatherAnalyzer {
 
         //look at the specified column using int columnIndex
         //go through every row
-        //get the value fro, that column
+        //get the value from that column
         //convert from String -> double
         //validate data
         //put valid numbers into a double[]
