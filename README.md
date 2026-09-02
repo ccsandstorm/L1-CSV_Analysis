@@ -2,9 +2,22 @@
 
 Carl Sandstrom
 Section 01
-Grade attempting: ___
+Grade attempting: A+
 
-How to: ____
+How to: 
+1) Open terminal or command prompt
+2) Compile program
+3) Run the program - either pass the csv file directly as a command-line argument, or use the interactive scanner prompt
+4) Interact with the menu
+5) Smile, it's a great day
+
+Topics with LLM (Google Gemini):
+1) File I/O exception handling: using FileInputStream, try-with-resources
+2) Data extraction and data type parsing: skipping hjeader rows, try-catch implementation
+3) Statistical calculations and array utility: using bubble sort, sample stnadard deviation, formatting output
+
+Hurdles:
+My biggest hurdles were figuring out how to parse the column's data (what format to hold it in: a 2d array, an ArrayList, a Hashmap), and formatting output (I went from Oracle to GeeksforGeeks to W3schools for documentation).
 
 ----------------------------------------
 
@@ -46,7 +59,7 @@ Complete all the requirements for a C and
     Formats numeric output appropriately (e.g., temperature to 1 decimal place with a °F or °C label and precipitation to 2 decimal places with “in”/“mm”)
     *Prompts user to select which column from the CSV file to analyze (e.g., high temp, low temp, humidity, wind speed, precipitation)
     *Identifies and skips rows with non-numeric data in the selected column
-    Reports how many rows were skipped due to invalid data
+    *Reports how many rows were skipped due to invalid data
     *The program works correctly even with some invalid data present
 
 Grade A (90 points)
@@ -57,8 +70,8 @@ Complete all the requirements for a B and
     *Code is organized into appropriate methods with clear responsibilities
     *Methods have appropriate parameters and return types
     *Follows Java naming conventions and coding standards.
-    Calculates additional statistics: median and standard deviation
-    Shows statistics with appropriate precision (2-3 decimal places)
+    *Calculates additional statistics: median and standard deviation
+    *Shows statistics with appropriate precision (2-3 decimal places)
 
 Extra Credit
 
