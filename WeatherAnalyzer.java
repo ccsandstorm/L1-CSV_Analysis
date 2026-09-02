@@ -10,10 +10,15 @@ public class WeatherAnalyzer {
     public static void main(String[] args) throws IOException {
         // Main program logic
 
-        String[][] data = readCSV("weather_data.csv");
+        //get filename
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Hello, User...");
+        System.out.println("Enter the data filename you wish to access: ");
+        String inFile = sc.nextLine();
 
-        Scanner scnr = new Scanner(System.in);
+        String[][] data = readCSV(inFile);
 
+        //get selection
         while(true) {
             System.out.println("\nChoose which data to display: ");
             System.out.println("1. High Temp");
@@ -24,7 +29,7 @@ public class WeatherAnalyzer {
             System.out.println("6. Quit program");
 
             System.out.print("\nEnter choice: ");
-            int choice = scnr.nextInt();
+            int choice = sc.nextInt();
 
             if(choice == 6) {
                 System.out.println("Exiting program");
@@ -49,10 +54,11 @@ public class WeatherAnalyzer {
                 continue;
             }
 
+            //call other functions
             double[] extractedData = extractNumericColumn(data, colIndex);
             displayStatistics(extractedData, colName);
         }
-        scnr.close();   
+        sc.close();   
     }
 
     public static String[][] readCSV(String filename) {
@@ -167,10 +173,30 @@ public class WeatherAnalyzer {
         double sample = sigma/(sortedValues.length -1);
         stDev = Math.sqrt(sample);
 
-        System.out.println("\nAverage " + columnName + " using " + sortedValues.length + " data points: " + avg);
-        System.out.println("Minimum " + columnName + " using " + sortedValues.length + " data points: " + min);
-        System.out.println("Maximum " + columnName + " using " + sortedValues.length + " data points: " + max);
-        System.out.println("Median " + columnName + " using " + sortedValues.length + " data points: " + median);
-        System.out.println("Standard deviation " + columnName + " using " + sortedValues.length + " data points: " + stDev);
+        //fix formatting
+        String format;
+        String unit;
+        if(columnName.contains("Temp")) {
+            format = "%.1f";
+            unit = "°F";
+        } else if(columnName.equals("Precipitation")) {
+            format = "%.2f";
+            unit = " in";
+        } else if(columnName.equals("Humidity")) {
+            format = "%.1f";
+            unit = "%";
+        } else if(columnName.equals("Wind Speed")) {
+            format = "%.1f";
+            unit = " mph";
+        } else {
+            format = "%.2f";
+            unit = "";
+        }
+
+        System.out.printf("\nAverage " + columnName + " using " + sortedValues.length + " data points: " + format + "%s\n", avg, unit);
+        System.out.printf("Minimum " + columnName + " using " + sortedValues.length + " data points: " + format + "%s\n", min, unit);
+        System.out.printf("Maximum " + columnName + " using " + sortedValues.length + " data points: " + format + "%s\n", max, unit);
+        System.out.printf("Median " + columnName + " using " + sortedValues.length + " data points: " + format + "%s\n", median, unit);
+        System.out.printf("Standard deviation " + columnName + " using " + sortedValues.length + " data points: " + format + "%s\n", stDev, unit);
     }
 }
